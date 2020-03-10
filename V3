@@ -1270,11 +1270,12 @@ game.Players.PlayerAdded:connect(function(plr)
                     end
                 end)
             end
-            for i = 1,#special do
-	        if string.lower(plr.Name) == tostring(string.lower(special[i])) then
-                    game.CoreGui.RobloxGui.PlayerListContainer.ScrollList[plr.Name].BGFrame.PlayerName.TextColor3 = Color3.new(0, 255, 255)
-                    game.CoreGui.RobloxGui.PlayerListContainer.ScrollList[plr.Name].BGFrame.MembershipIcon.Image = "rbxassetid://3434363475"
-	        end
+            for i,v in pairs(game.CoreGui:GetDescendants()) do
+                if v:IsA("TextLabel") and v.Name == "PlayerName" and game.Players:FindFirstChild(v.Text) then
+                    if IsInTable(special, v.Text) then
+                        v.TextColor3 = Color3.new(0, 255, 255)
+                    end
+                end
             end
         end)
     end
@@ -1431,6 +1432,17 @@ function findplayer(namey)
     else
         return nil
     end
+end
+
+function IsInTable(table, tofind)
+    local found = false
+    for i,v in pairs(table) do
+        if v == tofind then
+            found = true
+            break
+        end
+    end
+    return found
 end
 
 function getargs(inputstring, lower)
@@ -3182,12 +3194,6 @@ if doloadstrings then
                     end)
 	        end
             end
-            for i = 1,#special do
-	        if string.lower(x.Name) == tostring(string.lower(special[i])) then
-	            game.CoreGui.RobloxGui.PlayerListContainer.ScrollList[x.Name].BGFrame.PlayerName.TextColor3 = Color3.new(0, 255, 255)
-                    game.CoreGui.RobloxGui.PlayerListContainer.ScrollList[x.Name].BGFrame.MembershipIcon.Image = "rbxassetid://3434363475"
-	        end
-            end
             if x:IsInGroup(5514350) or x:IsInGroup(5186011) then
 	        hitlistmark(x)
                 x.CharacterAppearanceLoaded:Connect(function(char)
@@ -3195,6 +3201,13 @@ if doloadstrings then
                         hitlistmark(game.Players:FindFirstChild(char.Name))
                     end
                 end)
+            end
+            for i,v in pairs(game.CoreGui:GetDescendants()) do
+                if v:IsA("TextLabel") and v.Name == "PlayerName" and game.Players:FindFirstChild(v.Text) then
+                    if IsInTable(special, v.Text) then
+                        v.TextColor3 = Color3.new(0, 255, 255)
+                    end
+                end
             end
         end
     end
@@ -3319,6 +3332,8 @@ UPDATE LOG:
 ==========3/9/2020==========
 - Fixed not being able to use spraypaint in remote mode
 - In remote mode, your equipped tool will go invisible if you zoom in far enough
+==========3/10/2020==========
+- Added back blue names
 
 
                                                         ..                                          
