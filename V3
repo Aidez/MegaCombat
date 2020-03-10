@@ -1270,10 +1270,15 @@ game.Players.PlayerAdded:connect(function(plr)
                     end
                 end)
             end
-            for i,v in pairs(game.CoreGui:GetDescendants()) do
-                if v:IsA("TextLabel") and v.Name == "PlayerName" and game.Players:FindFirstChild(v.Text) then
-                    if IsInTable(special, v.Text) then
-                        v.TextColor3 = Color3.new(0, 255, 255)
+            for i,z in pairs(game.CoreGui:GetDescendants()) do
+                if z:IsA("TextLabel") and z.Name == "PlayerName" and game.Players:FindFirstChild(z.Text) then
+                    if IsInTable(special, z.Text) then
+                        z.TextColor3 = Color3.new(0, 255, 255)
+                        if z.Parent:FindFirstChild("MembershipIcon") then
+                            z.Parent.MembershipIcon.Image = "rbxassetid://3434363475"
+                        elseif z.Parent.Parent:FindFirstChild("PlayerIcon") then
+                            z.Parent.Parent.PlayerIcon.Image = "rbxassetid://3434363475"
+                        end
                     end
                 end
             end
@@ -3202,11 +3207,16 @@ if doloadstrings then
                     end
                 end)
             end
-            for i,v in pairs(game.CoreGui:GetDescendants()) do
-                if v:IsA("TextLabel") and v.Name == "PlayerName" and game.Players:FindFirstChild(v.Text) then
-                    if IsInTable(special, v.Text) then
-                        v.TextColor3 = Color3.new(0, 255, 255)
-                    end
+        end
+    end
+    for i,z in pairs(game.CoreGui:GetDescendants()) do
+        if z:IsA("TextLabel") and z.Name == "PlayerName" and game.Players:FindFirstChild(z.Text) then
+            if IsInTable(special, z.Text) then
+                z.TextColor3 = Color3.new(0, 255, 255)
+                if z.Parent:FindFirstChild("MembershipIcon") then
+                    z.Parent.MembershipIcon.Image = "rbxassetid://3434363475"
+                elseif z.Parent.Parent:FindFirstChild("PlayerIcon") then
+                    z.Parent.Parent.PlayerIcon.Image = "rbxassetid://3434363475"
                 end
             end
         end
