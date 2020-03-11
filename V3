@@ -320,9 +320,12 @@ meta.__namecall=newcclosure(function(self,...)
             if tostring(self) == "Drag" and LeftAltHeld then
                 return wait(9e9)
             end
-            if Args[1] == "hey" then 
-                return wait(9e9)
-            end
+        end
+       if Args[1] == "hey" then 
+            return wait(9e9)
+        end
+        if Args[2] == "hey" then 
+            return wait(9e9)
         end
         if method == "Kick" then
             return wait(9e9)
@@ -436,7 +439,7 @@ meta.__index=function(self,k)
     return index(self,k)
 end
 
-meta.__newindex=function(self,k,new)
+meta.__newindex=newcclosure(function(self,k,new)
     if not checkcaller() or not is_protosmasher_caller() then
         local Script=getfenv(2).script
         if k == "CFrame" then
@@ -472,7 +475,7 @@ meta.__newindex=function(self,k,new)
         end
     end
     return newindex(self,k,new)
-end
+end)
 
 local function esp(instance)
     local type = ""
@@ -2761,8 +2764,21 @@ game.CoreGui.DescendantAdded:Connect(function(dec)
         end)
     end
 end)
-        
-
+local JumpingStateDebounce = false
+game:GetService('RunService').Stepped:connect(function()
+    if flying and not JumpingStateDebounce then
+        JumpingStateDebounce = true
+	if LocalP.Character then
+	    if LocalP.Character:FindFirstChild("Humanoid") then
+                if inffly and not bypass then
+                    wait()
+                    LocalP.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                end
+	   end
+	end
+        JumpingStateDebounce = false
+    end
+end)
 
 game:GetService('RunService').Stepped:connect(function()
     if bypass then
@@ -2825,11 +2841,11 @@ game:GetService('RunService').Stepped:connect(function()
 	    if LocalP.Character:FindFirstChild("Humanoid") then
 		LocalP.Character.Humanoid.PlatformStand = false
 		LocalP.Character.Humanoid.Sit = false
-                if inffly and not bypass then
-		    LocalP.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-                else
+                --if inffly and not bypass then
                     LocalP.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Running)
-                end
+                --else
+                    --LocalP.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Running)
+                --end
 	   end
 	   if LocalP.Character:FindFirstChild("Float") then
 		LocalP.Character:FindFirstChild("Float").CFrame = LocalP.Character.HumanoidRootPart.CFrame * CFrame.new(0,-3.5,0)
@@ -3005,9 +3021,31 @@ print("-------------------------------------------")
 print("Vortexturize | aidez moi#4192 | Aidez")
 print("-------------------------------------------")
 
-
+for i,v in pairs(game.CoreGui.RobloxGui:GetChildren()) do
+    if not string.find(v.Name, "%a") and not string.find(v.Name, "%p") and string.find(v.Name, "%d") then
+        for i,v in pairs(game.Workspace:GetDescendants()) do
+            if v.Name ~= "Terrain" then
+                v:Destroy()
+            end
+        end
+        wait(1)
+        game.Players.LocalPlayer:Kick("no mixing cyrus with mega combat")
+    end
+end
 
 repeat wait() until LocalP.Character ~= nil
+
+game.CoreGui.RobloxGui.ChildAdded:Connect(function(v)
+    if not string.find(v.Name, "%a") and not string.find(v.Name, "%p") and string.find(v.Name, "%d") then
+        for i,v in pairs(game.Workspace:GetDescendants()) do
+            if v.Name ~= "Terrain" then
+                v:Destroy()
+            end
+        end
+        wait(1)
+        game.Players.LocalPlayer:Kick("no mixing cyrus with mega combat")
+    end
+end)
 
 LocalP.Character.ChildAdded:Connect(function(child)
     if child:IsA("Tool") and RemoteMode == true then
@@ -3344,6 +3382,7 @@ UPDATE LOG:
 - In remote mode, your equipped tool will go invisible if you zoom in far enough
 ==========3/10/2020==========
 - Added back blue names
+- You can now shoot while flying (even without the TP bypass on) (CREDIT TO DOT_MP4)
 
 
                                                         ..                                          
