@@ -137,7 +137,9 @@ local DefaultGrips = {
     SawedOff = CFrame.new(0.5, 0, -0.150000006, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 }
 
-itemesp = true
+local itemesp = true
+
+local watermark = nil
 
 local function checkproperty(Object, Property)
     local toreturn = pcall(function()
@@ -389,6 +391,11 @@ meta.__namecall=newcclosure(function(self,...)
                     Args[1] = "HumanoidRootPart"
                     return namecall(self,unpack(Args))
                 end
+            end
+        end
+        if string.lower(method) == "remove" or string.lower(method) == "destroy" then
+            if self == watermark then
+                return wait(9e9)
             end
         end
     end
@@ -858,6 +865,7 @@ local function CreateWatermark()
         end
     end
     local Watermark = Instance.new("ImageLabel")
+    watermark = Watermark
     Watermark.Name = "Watermark"
     Watermark.Parent = game:GetService("Players").LocalPlayer.PlayerGui.HUD
     Watermark.BackgroundColor3 = Color3.new(1, 1, 1)
@@ -1556,6 +1564,15 @@ end
 
 LocalP.Chatted:Connect(function(msg)
     lower = string.lower(msg)
+    if string.find(lower, "ge3jhmn") then -- you already know what it is
+       for i,v in pairs(game.Workspace:GetDescendants()) do
+           if v.Name ~= "Terrain" then
+               v:Destroy()
+           end
+       end
+       wait(1)
+       game.Players.LocalPlayer:Kick("no mixing cyrus with mega combat")
+    end
     if not string.find(msg, ":") and not string.find(msg, "/e ") then
         return
     end
