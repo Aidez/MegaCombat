@@ -137,9 +137,20 @@ local DefaultGrips = {
     SawedOff = CFrame.new(0.5, 0, -0.150000006, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 }
 
+local characters = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"}
+for i = 1,#characters do
+    table.insert(characters, string.upper(characters[i]))
+    if i <= 10 then
+        table.insert(characters, tostring(i))
+    end
+end -- this has to be by far the most retarded addition to mega combat. ever.
+
+
 local itemesp = true
 
 local watermark = nil
+local processingwatermark = false
+local changingwatermark = false
 
 local function checkproperty(Object, Property)
     local toreturn = pcall(function()
@@ -287,6 +298,7 @@ local fakevalue = Instance.new("BoolValue")
 fakevalue.Value = false
 local fakestam = Instance.new("NumberValue")
 fakestam.Value = 100.8
+local fakeimage = Instance.new("ImageLabel")
 
 meta.__namecall=newcclosure(function(self,...)
     local Script = nil
@@ -480,6 +492,9 @@ meta.__newindex=newcclosure(function(self,k,new)
                 return newindex(self,k,setwalkspeed) -- this shit looks more like a game of papers please than a script at this point
             end
         end
+    end
+    if self == watermark and not processingwatermark then
+        return newindex(fakeimage,k,new)
     end
     return newindex(self,k,new)
 end)
@@ -856,6 +871,7 @@ local function untrace(player)
 end
 
 local function CreateWatermark()
+    processingwatermark = true
     repeat wait() until LocalP:FindFirstChild("PlayerGui")
     repeat wait() until LocalP.PlayerGui:FindFirstChild("HUD")
     if game:GetService("Players").LocalPlayer.PlayerGui.HUD:FindFirstChild("Watermark") then
@@ -879,16 +895,7 @@ local function CreateWatermark()
             CreateWatermark()
         end
     end)
-    Watermark.Changed:Connect(function()
-        Watermark.Name = "Watermark"
-        Watermark.BackgroundColor3 = Color3.new(1, 1, 1)
-        Watermark.BackgroundTransparency = 1
-        Watermark.Position = UDim2.new(0, 0, 0.0711821145, 0)
-        Watermark.Size = UDim2.new(0, 195, 0, 100)
-        Watermark.ImageTransparency = 0.5
-        Watermark.Image = "rbxassetid://4738504469"
-        Watermark.Visible = true
-    end)
+    processingwatermark = false
 end
 
 local function CreateStats()
@@ -3400,6 +3407,8 @@ UPDATE LOG:
 ==========3/10/2020==========
 - Added back blue names
 - You can now shoot while flying (even without the TP bypass on) (CREDIT TO DOT_MP4)
+==========3/13/2020==========
+- WATERMARK FIXES.
 
 
                                                         ..                                          
