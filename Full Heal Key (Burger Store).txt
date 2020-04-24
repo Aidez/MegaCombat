@@ -1,4 +1,4 @@
-local EatKey = "c" -- Type a letter in the quotes to change the key that'll toggle noclip
+local EatKey = "c" -- Type a letter in the quotes to change the key that'll use stored burgers
 
 
 
@@ -152,3 +152,30 @@ LocalP.CharacterAdded:Connect(function(char)
     repeat wait() until LocalP:FindFirstChild("Backpack")
     LocalP.Backpack.ChildAdded:Connect(BurgerAdded)
 end)
+
+print("")
+print(string.upper(EatKey).." Key - Heal with stored burgers")
+print("")
+
+--[[
+                                                        ..                                          
+                                     /yys.            `hMM/                                        
+                    :ys:            `NMMMo            oMMM:                                        
+                  `sMMMm             -oo:            `NMMy                                          
+                 .hMMMMM+                            +MMN`        `.-::.              `            
+                -mMMyoMMN.         /hho       .:syhhomMMs       -smNMMMNy  `shysssssyhdho          
+               :mMMs``dMMd`        NMMm     .smMNdhdMMMM.     `sNMNs:/MMM. `ydmmmmddMMMN+          
+              +NMMs   -MMMs       :MMM/    +NMNs-  .MMMy     .dMMd- -yMMy    `````/hMMy-            
+            `yMMMmosyhdMMMM+      yMMm    yMMN:   `yMMM/     dMMN+odNMd/        :hMNy:              
+           -dMMMMMMmmdhyhMMM+     NMMo   /MMM-   :dMMMM-    :MMMMNmho-``:/    :hNMh-                
+          +NMMm//-..``  `hMMMo`  -MMM/   yMMm``:hNMyMMM+.-- :MMMy.` `-omMd` /dMMmo/+oooo/`          
+         oMMMh.          `yMMMm/ :MMMs   +MMMmmMNh: hMMNNNy  yMMMmhdmNMm+`:dMMMMNNNNmNMMMo          
+         :yh+`            `/dNNs `ydh:    :shys/.   `+yso-`   :shddhy+-` oNMNho:-..```.-/`  
+ 
+Join my discord here!:
+https://discord.gg/Ez2dGeQ
+ 
+This script includes mega combat's full heal / burger store
+Change the key for using your burgers at the top of the script
+
+--]]
