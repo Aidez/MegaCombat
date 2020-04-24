@@ -286,9 +286,9 @@ local namecall = meta.__namecall
 local newindex = meta.__newindex
 local index = meta.__index
 if PROTOSMASHER_LOADED then
-    make_writeable(meta)
+    make_writeable(meta, true)
 else
-    setreadonly(meta,false)
+    setreadonly(meta, false)
 end
 
 local fakemodel = Instance.new("Model")
@@ -317,7 +317,7 @@ meta.__namecall=newcclosure(function(self,...)
     if not checkcaller() or not is_protosmasher_caller() then
         local Args={...}
         if method == "Destroy" and tostring(self) == "BodyGyro" or method == "Destroy" and tostring(self) == "BodyVelocity" then
-             local destroybait = Instance.new("Part", game.Workspace)
+            local destroybait = Instance.new("Part", game.Workspace)
             return namecall(destroybait,...)
         end
         if method == "Play" and RemoteMode then
@@ -335,7 +335,7 @@ meta.__namecall=newcclosure(function(self,...)
                 return wait(9e9)
             end
         end
-       if Args[1] == "hey" then 
+        if Args[1] == "hey" then 
             return wait(9e9)
         end
         if Args[2] == "hey" then 
@@ -345,8 +345,8 @@ meta.__namecall=newcclosure(function(self,...)
             return wait(9e9)
         end
         if method == "ClearAllChildren" or method == "Destroy" then 
-            return 
-        end 
+            return
+        end
         if string.lower(method) == "waitforchild" then
             if Args[1] == "HumanoidRootPart" then
                 if bypass then
@@ -501,7 +501,7 @@ end)
 
 local function esp(instance)
     local types = ""
-    local EspText = "aaaaaah"
+    local EspText = ""
     local EspFontSize = "Size14" -- Uzi has larger text
     local EspColor = BrickColor.new("Bright green") -- Temporary placeholder
     local EspPart = instance
@@ -530,6 +530,9 @@ local function esp(instance)
         end
     end
 
+    if EspText == "" then
+        return
+    end
 
     local TracerPart = Instance.new("Part")
     TracerPart.Parent = EspPart
