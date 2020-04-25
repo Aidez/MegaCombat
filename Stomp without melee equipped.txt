@@ -1,0 +1,53 @@
+repeat wait() until game.Players ~= nil
+repeat wait() until game.Players.LocalPlayer ~= nil
+
+local LocalP = game.Players.LocalPlayer
+local mouse = LocalP:GetMouse()
+
+mouse.KeyDown:Connect(function(key)
+    if key == "e" then
+        EHeld = true
+        if LocalP.Backpack:FindFirstChild("ServerTraits") and LocalP.Character ~= nil then
+            if LocalP.Backpack.ServerTraits:FindFirstChild("Finish") then
+                if not LocalP.Character:FindFirstChildOfClass("Tool") then
+                    if LocalP.Backpack:FindFirstChild("Knife") then
+                        LocalP.Backpack.ServerTraits.Finish:FireServer(LocalP.Backpack.Knife)
+                    elseif LocalP.Backpack:FindFirstChild("Punch") then
+                        LocalP.Backpack.ServerTraits.Finish:FireServer(LocalP.Backpack.Punch)
+                    end
+                elseif LocalP.Character:FindFirstChildOfClass("Tool") then
+                    if LocalP.Character:FindFirstChildOfClass("Tool"):FindFirstChild("Fire") then
+                        if LocalP.Backpack:FindFirstChild("Knife") then
+                            LocalP.Backpack.ServerTraits.Finish:FireServer(LocalP.Backpack.Knife)
+                        elseif LocalP.Backpack:FindFirstChild("Punch") then
+                            LocalP.Backpack.ServerTraits.Finish:FireServer(LocalP.Backpack.Punch)
+                        end
+                    end
+                end
+            end
+        end
+    end
+end)
+
+--[[
+                                                        ..                                          
+                                     /yys.            `hMM/                                        
+                    :ys:            `NMMMo            oMMM:                                        
+                  `sMMMm             -oo:            `NMMy                                          
+                 .hMMMMM+                            +MMN`        `.-::.              `            
+                -mMMyoMMN.         /hho       .:syhhomMMs       -smNMMMNy  `shysssssyhdho          
+               :mMMs``dMMd`        NMMm     .smMNdhdMMMM.     `sNMNs:/MMM. `ydmmmmddMMMN+          
+              +NMMs   -MMMs       :MMM/    +NMNs-  .MMMy     .dMMd- -yMMy    `````/hMMy-            
+            `yMMMmosyhdMMMM+      yMMm    yMMN:   `yMMM/     dMMN+odNMd/        :hMNy:              
+           -dMMMMMMmmdhyhMMM+     NMMo   /MMM-   :dMMMM-    :MMMMNmho-``:/    :hNMh-                
+          +NMMm//-..``  `hMMMo`  -MMM/   yMMm``:hNMyMMM+.-- :MMMy.` `-omMd` /dMMmo/+oooo/`          
+         oMMMh.          `yMMMm/ :MMMs   +MMMmmMNh: hMMNNNy  yMMMmhdmNMm+`:dMMMMNNNNmNMMMo          
+         :yh+`            `/dNNs `ydh:    :shys/.   `+yso-`   :shddhy+-` oNMNho:-..```.-/`  
+ 
+Join my discord here!:
+https://discord.gg/Ez2dGeQ
+ 
+This script includes mega combat's stomp without weapons script
+Press E over someone to stomp them
+
+--]]
