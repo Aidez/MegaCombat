@@ -1,0 +1,104 @@
+local JumpToggle = "l" -- Type a letter in the quotes to change the key that'll TOGGLE super run
+local HeightUpKey = "]" -- Type a letter in the quotes to change the key that'll RAISE super run's speed
+local HeightDownKey = "[" -- Type a letter in the quotes to change the key that'll LOWER super run's speed
+
+
+------------------------------------
+
+repeat wait() until game.Players ~= nil
+repeat wait() until game.Players.LocalPlayer ~= nil
+
+local LocalP = game.Players.LocalPlayer
+local mouse = LocalP:GetMouse()
+JumpToggle = string.lower(JumpToggle)
+HeightUpKey = string.lower(HeightUpKey)
+HeightDownKey = string.lower(HeightDownKey)
+
+local SpaceHeld = false
+local SuperJump = true
+local JumpHeight = 0.9
+
+mouse.KeyDown:Connect(function(key)
+    if key == " " and SuperJump == true then
+        SpaceHeld = true
+    end
+    if key == JumpToggle then
+        SuperJump = not SuperJump
+        local currenttext = ""
+        if SuperJump == true then
+            currenttext = "SuperRun is now turned ON!"
+        else
+            currenttext = "SuperRun is now turned OFF!"
+        end
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "notification";
+            Text = currenttext;
+            Icon = "rbxassetid://2541869220";
+            Duration = 3;
+        })
+    end
+    if key == HeightDownKey then        
+        JumpHeight = JumpHeight - 0.1
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "notification";
+            Text = "Your Super-Jump height is now "..tostring(JumpHeight).."!";
+            Icon = "rbxassetid://2541869220";
+            Duration = 3;
+        })
+    end
+    if key == HeightUpKey then        
+        JumpHeight = JumpHeight + 0.1
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "notification";
+            Text = "Your Super-Jump height is now "..tostring(JumpHeight).."!";
+            Icon = "rbxassetid://2541869220";
+            Duration = 3;
+        })
+    end
+end)
+
+mouse.KeyUp:Connect(function(key)
+    if key == " " then
+        SpaceHeld = false
+    end
+end)
+
+game:GetService('RunService').Stepped:connect(function()
+    if SpaceHeld == true then
+        LocalP.Character.HumanoidRootPart.CFrame = LocalP.Character.HumanoidRootPart.CFrame * CFrame.new(0,JumpHeight,0)
+    end
+end)
+
+print("")
+print("Hold Space - Super Jump")
+print(string.upper(JumpToggle).." Key - Toggle Super Jump")
+print(string.upper(HeightUpKey).." Key - Raise your Super Jump height")
+print(string.upper(HeightDownKey).." Key - Lower your Super Jump height")
+print("")
+
+--[[
+                                                        ..                                          
+                                     /yys.            `hMM/                                        
+                    :ys:            `NMMMo            oMMM:                                        
+                  `sMMMm             -oo:            `NMMy                                          
+                 .hMMMMM+                            +MMN`        `.-::.              `            
+                -mMMyoMMN.         /hho       .:syhhomMMs       -smNMMMNy  `shysssssyhdho          
+               :mMMs``dMMd`        NMMm     .smMNdhdMMMM.     `sNMNs:/MMM. `ydmmmmddMMMN+          
+              +NMMs   -MMMs       :MMM/    +NMNs-  .MMMy     .dMMd- -yMMy    `````/hMMy-            
+            `yMMMmosyhdMMMM+      yMMm    yMMN:   `yMMM/     dMMN+odNMd/        :hMNy:              
+           -dMMMMMMmmdhyhMMM+     NMMo   /MMM-   :dMMMM-    :MMMMNmho-``:/    :hNMh-                
+          +NMMm//-..``  `hMMMo`  -MMM/   yMMm``:hNMyMMM+.-- :MMMy.` `-omMd` /dMMmo/+oooo/`          
+         oMMMh.          `yMMMm/ :MMMs   +MMMmmMNh: hMMNNNy  yMMMmhdmNMm+`:dMMMMNNNNmNMMMo          
+         :yh+`            `/dNNs `ydh:    :shys/.   `+yso-`   :shddhy+-` oNMNho:-..```.-/`  
+ 
+Join my discord here!:
+https://discord.gg/Ez2dGeQ
+ 
+This script includes mega combat's super run
+
+Hold shift to jump super high
+Toggle super jump on / off with the key set at the top of the script (the default is F)
+Raise / lower your jump height with the keys set at the top of the script
+(Defaults are "[" to lower your jump height, and "]" to increase it)
+
+--]]
