@@ -23,7 +23,7 @@ local SuperRun = true
 local RunSpeed = 1
 
 mouse.KeyDown:Connect(function(key)
-    if key == "0" then
+    if key == "0" and SuperRun == true then
         ShiftHeld = true
     end
     if key == "w" then
