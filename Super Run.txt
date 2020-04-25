@@ -137,6 +137,8 @@ This script includes mega combat's super run
 
 Hold shift to run super fast
 Toggle super run on / off with the key set at the top of the script (the default is F)
+Raise / lower your run speed with the keys set at the top of the script
+(Defaults are "-" to lower your run speed, and "+" to increase it)
 
 Make sure SHIFT LOCK IS OFF while using this
 
